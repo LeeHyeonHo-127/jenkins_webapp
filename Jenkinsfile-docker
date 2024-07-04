@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout'){
             agent any
             steps {
-                git branch: 'main', url: 'https://github.com/LeeHyeonHo-127/jenkins_webapp'  
+                git branch: 'master', url: 'https://github.com/LeeHyeonHo-127/jenkins_webapp'  
             }
         }
 
