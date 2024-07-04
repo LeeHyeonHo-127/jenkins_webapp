@@ -44,7 +44,7 @@ pipeline {
         stage('Publish Docker Image'){
             agent any
             steps {
-                withDockerRegistry(credentionsId: 'docker-hub-token', url: 'https://index.docker.io/v1/'){
+                withDockerRegistry(credentialsId: 'docker-hub-token', url: 'https://index.docker.io/v1/'){
                     sh 'docker push swethom3143/tomcat-application:v1'
                 }
             }
