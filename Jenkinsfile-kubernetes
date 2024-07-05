@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Pod
 spec:
   containers:
-  - git
+  - name: git
     image: alpine/git
     command:
     - sleep
