@@ -28,6 +28,12 @@ spec:
       items:
       - key: .dockerconfigjson
         path: config.json
+  - git
+    image: alpine/git
+    command:
+    - sleep
+    args:
+    - infinity
 '''
         }
     }
@@ -57,6 +63,31 @@ spec:
             steps {
                 container('kaniko') {
                     sh 'executor --context=dir://$WORKSPACE --destination=swethom3143/tomcat-applcation:$BUILD_NUMBER --destination=swethom3143/tomcat-application:latest'
+                }
+            }
+        }
+        stage('Update K8s Manifests & Push') {
+            environment {
+                githubUser = 'LeeHyeonHo'
+                githubEmail = 'swethom1@naver.com'
+                githubID = 'LeeHyeonHo-127'
+                githubRepo = 'jenkins_webapp_argocd'
+                githubURL = "https://github.com/${githubId}/${githubRepo}.git"
+                dockerhubId = 'swethom3143'
+                dockerhubRepo = 'tomcat-application'
+            }
+            steps {
+                container('git'){
+                    git branch: 'master', credentialsId: 'github-credential', url: "${githubURL}"
+                    sh "git config --global --add safe.directory ${workspace}"
+                    sh "git config --global user.name ${githubUser}"
+                    sh "git config --global user.email ${githubEmail}"
+                    sh 'sed -i "s/image:.*/image: ${dockerhubId}\\/${dockerhubRepo}:${BUILD_NUMBER}/g" deployment.yaml'
+                    sh 'git add deployment.yaml'
+                    sh 'git commit -m "Jenkins Build Number - ${BUILD_NUMBER}"' 
+                    withCredentials([gitUsernamePassword(credentialsId: 'github-credential', gitToolName: 'Default')]) {
+                        sh 'git push --set-upstream origin main'
+                    }
                 }
             }
         }
