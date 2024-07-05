@@ -75,7 +75,7 @@ spec:
                 githubRepo = 'jenkins_webapp_argocd'
                 githubURL = "https://github.com/${githubId}/${githubRepo}.git"
                 dockerhubId = 'swethom3143'
-                dockerhubRepo = 'tomcat-application'
+                dockerhubRepo = 'mywebapp'
             }
             steps {
                 container('git'){
