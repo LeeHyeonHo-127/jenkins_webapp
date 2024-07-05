@@ -71,7 +71,7 @@ spec:
             environment {
                 githubUser = 'LeeHyeonHo'
                 githubEmail = 'swethom1@naver.com'
-                githubID = 'LeeHyeonHo-127'
+                githubId = 'LeeHyeonHo-127'
                 githubRepo = 'jenkins_webapp_argocd'
                 githubURL = "https://github.com/${githubId}/${githubRepo}.git"
                 dockerhubId = 'swethom3143'
