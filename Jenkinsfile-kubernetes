@@ -63,7 +63,7 @@ spec:
         stage('Build & Tag & Push Docker Image') {
             steps {
                 container('kaniko') {
-                    sh 'executor --context=dir://$WORKSPACE --destination=swethom3143/tomcat-applcation:$BUILD_NUMBER --destination=swethom3143/tomcat-application:latest'
+                    sh 'executor --context=dir://$WORKSPACE --destination=swethom3143/mywebapp:$BUILD_NUMBER --destination=swethom3143/mywebapp:latest'
                 }
             }
         }
